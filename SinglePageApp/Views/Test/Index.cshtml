@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.EmpName</h2>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>EmployeeID</th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>Department Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.EmpList != null)
+        {
+            foreach (var item in ViewBag.EmpList)
+            {
+                <tr>
+                    <td>@item.EmployeeId</td>
+                    <td>@item.Name</td>
+                    <td>@item.Salary</td>
+                    <td>@item.DepartmentName</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<hr />
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>DepartmentID</th>
+            <th>Department Name</th>
+            <th>Department Head</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.DepartList != null)
+        {
+            foreach (var item in ViewBag.DepartList)
+            {
+                <tr>
+                    <td>@item.DEPARTMENT_ID</td>
+                    <td>@item.DEPARTMENT_NAME</td>
+                    <td>@item.DEPARTMENT_HEAD</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

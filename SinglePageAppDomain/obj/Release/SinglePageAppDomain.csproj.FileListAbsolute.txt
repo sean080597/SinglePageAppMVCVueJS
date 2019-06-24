@@ -1,0 +1,6 @@
+D:\VisualStudio\Projects\SinglePageApp\SinglePageAppDomain\bin\Release\SinglePageAppDomain.dll
+D:\VisualStudio\Projects\SinglePageApp\SinglePageAppDomain\bin\Release\SinglePageAppDomain.pdb
+D:\VisualStudio\Projects\SinglePageApp\SinglePageAppDomain\obj\Release\SinglePageAppDomain.csprojAssemblyReference.cache
+D:\VisualStudio\Projects\SinglePageApp\SinglePageAppDomain\obj\Release\SinglePageAppDomain.csproj.CoreCompileInputs.cache
+D:\VisualStudio\Projects\SinglePageApp\SinglePageAppDomain\obj\Release\SinglePageAppDomain.dll
+D:\VisualStudio\Projects\SinglePageApp\SinglePageAppDomain\obj\Release\SinglePageAppDomain.pdb

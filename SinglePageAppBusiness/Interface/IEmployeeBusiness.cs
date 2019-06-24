@@ -1,0 +1,34 @@
+﻿using SinglePageAppDomain;
+using SinglePageAppRepository;
+using System.Collections.Generic;
+
+namespace SinglePageAppBusiness.Interface
+{
+    public interface IEmployeeBusiness
+    {
+        List<DepartmentDomainModel> GetAllDepartment();
+        DepartmentDomainModel GetSingleDepartment(int departID);
+        void PostSingleDepartment(DEPARTMENT department);
+        void PutSingleDepartment(DEPARTMENT department);
+        bool DeleteSingleDepartment(short departID);
+        bool DEPARTMENTExists(short departID);
+
+        //==================================================================
+        List<EmployeeDomainModel> GetAllEmployee();
+        List<EMPLOYEE> GetAllEmployeeWithDepartment();
+        List<EMPLOYEE> GetAllEmployeeByDepartID(int departID);
+        EmployeeDomainModel GetSingleEmployee(int empID);
+        EMPLOYEE GetSingleEmployeeWithDepartment(int empID);
+        void PostSingleEmployee(EMPLOYEE employee);
+        void PutSingleEmployee(EmployeeDomainModel employee);
+        bool DeleteSingleEmployee(short empID);
+        bool EmployeeExists(short empID);
+
+        //==================================================================
+        void DBDispose();
+
+        //==================================================================
+        bool WriteBinFile(string msg, string filePath);
+        string ReadBinFile(string filePath, int bytePos, int byteReq);
+    }
+}
