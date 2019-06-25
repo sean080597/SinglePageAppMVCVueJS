@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <TitleLink title="Read Write Binary File"></TitleLink>
     <v-layout row wrap>
       <v-flex xs12 sm8 md6 py-2>
         <h2 class="red--text text-xs-center">Write Binary File</h2>
@@ -20,10 +21,11 @@
 </template>
 
 <script>
+import TitleLink from "../components/TitleLink";
 import FileInput from '../components/FileInput'
 export default {
   components:{
-    FileInput
+    FileInput, TitleLink
   },
 
   data() {

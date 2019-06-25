@@ -11,6 +11,7 @@
       <v-btn flat to="/readwritebinfile">Bin File</v-btn>
       <v-btn flat to="/try_department">Departments Lab</v-btn>
       <v-btn flat to="/try_employee">Employees Lab</v-btn>
+      <v-btn flat to="/example">Chart</v-btn>
       <v-menu open-on-hover transition="slide-y-transition">
         <template v-slot:activator="{ on }">
           <v-btn flat color="indigo" small v-on="on">Languages</v-btn>

@@ -1,7 +1,5 @@
 window._ = require('lodash');
-
 window.Vue = require('vue')
-
 window.Fire = new Vue()
 
 import Vue from 'vue'
