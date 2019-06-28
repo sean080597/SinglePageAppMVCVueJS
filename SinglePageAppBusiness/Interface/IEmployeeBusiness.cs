@@ -30,5 +30,11 @@ namespace SinglePageAppBusiness.Interface
         //==================================================================
         bool WriteBinFile(string msg, string filePath);
         string ReadBinFile(string filePath, int bytePos, int byteReq);
+
+        //==================================================================
+        List<SvserverItem> GetAllSVSERVER();
+        List<SVSERVERSETTING> GetAllSVSERVERSetting();
+        IEnumerable<MyFile> GetAllFilesByPath(string filePath);
+        void WriteLogFile(string logPath, MyFile myFile, string datetime);
     }
 }

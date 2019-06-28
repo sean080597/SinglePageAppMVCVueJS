@@ -176,5 +176,69 @@ namespace SinglePageAppBusiness
 
             return System.Text.Encoding.UTF8.GetString(fileData);
         }
+
+        //==================================== SVSERVER =================================
+        public List<SVSERVERSETTING> GetAllSVSERVERSetting()
+        {
+            return db.SVSERVERSETTINGS.ToList();
+        }
+
+        public List<SvserverItem> GetAllSVSERVER()
+        {
+            byte default_code = 0;
+            byte default_division = 0;
+            List<SVSERVERSETTING> settings = db.SVSERVERSETTINGS.ToList();
+            foreach(SVSERVERSETTING item in settings)
+            {
+                if(item.SETTINGNAME == "DEFAULTCODE")
+                {
+                    default_code = Byte.Parse(item.SETTINGVALUE);
+                    continue;
+                }
+                if (item.SETTINGNAME == "DEFAULTDIVISION")
+                {
+                    default_division = Byte.Parse(item.SETTINGVALUE);
+                }
+            }
+            return db.SVSERVERs.Select(t => new SvserverItem
+                {
+                    ID = t.ID,
+                    CODE = t.CODE,
+                    CODE2 = t.CODE2,
+                    DESCRIPTION = t.DESCRIPTION,
+                    DIRECTORY = t.DIRECTORY,
+                    DIVISION = t.DIVISION,
+                    NAME = t.NAME,
+                    ORDINAL = t.ORDINAL
+                })
+                .OrderBy(t => (t.CODE == default_code && t.DIVISION == default_division) ? 0 : 1)
+                .ThenBy(t => t.ID).ToList();
+
+        }
+
+        public IEnumerable<MyFile> GetAllFilesByPath(string filePath)
+        {
+            List<MyFile> ls_files = new List<MyFile>();
+            var files = Directory.GetFiles(filePath).Where(name => !name.ToLower().EndsWith(".log"));
+            foreach (string file in files)
+            {
+                ls_files.Add(new MyFile {
+                    FileName = Path.GetFileName(file),
+                    FilePath = file,
+                    FileDateModified = File.GetLastWriteTime(file).ToString()
+                });
+            }
+            return ls_files;
+        }
+
+        public void WriteLogFile(string logPath, MyFile myFile, string datetime)
+        {
+            string logName = db.SVSERVERSETTINGS.Where(t => t.SETTINGNAME == "LOGFILE").First().SETTINGVALUE;
+            logPath = Path.Combine(logPath, logName);
+            using (StreamWriter writetext = new StreamWriter(logPath, true))
+            {
+                writetext.WriteLine(datetime + " --- " + myFile.FileName + " --- " + myFile.FilePath + " --- " + myFile.FileDateModified);
+            }
+        }
     }
 }

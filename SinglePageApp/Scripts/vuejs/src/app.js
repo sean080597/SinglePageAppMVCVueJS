@@ -9,6 +9,7 @@ import Vuetify from 'vuetify';
 import VeeValidate from 'vee-validate';
 import Swal from 'sweetalert2';
 import {i18n} from './plugins/i18n'
+import moment from 'moment'
 
 //set globally axios
 window.axios = require('axios');
@@ -34,6 +35,15 @@ const toast = Swal.mixin({
     timer: 3000
 });
 window.toast = toast;
+
+//Filters
+Vue.filter('dateYMD', function(val){
+    return moment(new Date(val)).locale('en').format('YYYY/MM/DD');
+});
+
+Vue.filter('dateYMDHMS', function(val){
+    return moment(new Date(val)).locale('en').format('YYYY/MM/DD HH:mm:ss');
+});
 
 //vue components
 Vue.component('AppHome', require('./layouts/AppHome.vue').default);

@@ -16,8 +16,10 @@ const routes = [
     { path: '/employee/edit/:employee_id', component: require('./pages/Employee/Edit.vue').default },
     { path: '/try_department', component: require('./pages/DepartmentCRUD.vue').default },
     { path: '/try_employee', component: require('./pages/EmployeeCRUD.vue').default },
-    { path: '/example', component: require('./pages/ExampleDatatable.vue').default },
+    { path: '/chart', component: require('./pages/Chart.vue').default },
     { path: '/readwritebinfile', component: require('./pages/ReadWriteBin.vue').default },
+
+    { path: '/svserver', component: require('./pages/SVServer.vue').default },
 ];
 
 const router = new VueRouter({
