@@ -764,7 +764,10 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\vuejs\dist\bundle.js" />
     <Content Include="Scripts\vuejs\src\app.js" />
+    <Content Include="Scripts\vuejs\src\plugins\i18n.js" />
+    <Content Include="Scripts\vuejs\src\router.js" />
     <Content Include="Scripts\vuejs\webpack.config.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -783,15 +786,37 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Scripts\vuejs\package-lock.json" />
     <Content Include="Scripts\vuejs\package.json" />
+    <Content Include="Scripts\vuejs\src\components\AppFooter.vue" />
+    <Content Include="Scripts\vuejs\src\components\charts\LineChart.vue" />
+    <Content Include="Scripts\vuejs\src\components\department\SingleDepartment.vue" />
+    <Content Include="Scripts\vuejs\src\components\employee\SingleEmployee.vue" />
+    <Content Include="Scripts\vuejs\src\components\FileInput.vue" />
+    <Content Include="Scripts\vuejs\src\components\Sidebar.vue" />
+    <Content Include="Scripts\vuejs\src\components\SidebarTOP.vue" />
+    <Content Include="Scripts\vuejs\src\components\TitleLink.vue" />
+    <Content Include="Scripts\vuejs\src\components\Toolbar.vue" />
+    <Content Include="Scripts\vuejs\src\langs\en.json" />
+    <Content Include="Scripts\vuejs\src\langs\ja.json" />
+    <Content Include="Scripts\vuejs\src\layouts\AppHome.vue" />
+    <Content Include="Scripts\vuejs\src\pages\About.vue" />
+    <Content Include="Scripts\vuejs\src\pages\Chart.vue" />
+    <Content Include="Scripts\vuejs\src\pages\Dashboard.vue" />
+    <Content Include="Scripts\vuejs\src\pages\DepartmentCRUD.vue" />
+    <Content Include="Scripts\vuejs\src\pages\Department\Create.vue" />
+    <Content Include="Scripts\vuejs\src\pages\Department\Department.vue" />
+    <Content Include="Scripts\vuejs\src\pages\Department\Edit.vue" />
+    <Content Include="Scripts\vuejs\src\pages\EmployeeCRUD.vue" />
+    <Content Include="Scripts\vuejs\src\pages\Employee\Create.vue" />
+    <Content Include="Scripts\vuejs\src\pages\Employee\Edit.vue" />
+    <Content Include="Scripts\vuejs\src\pages\Employee\Employee.vue" />
+    <Content Include="Scripts\vuejs\src\pages\ExampleDatatable.vue" />
+    <Content Include="Scripts\vuejs\src\pages\ReadWriteBin.vue" />
+    <Content Include="Scripts\vuejs\src\pages\SVServer.vue" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="FilesUpload\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\vuejs\dist\" />
-    <Folder Include="Scripts\vuejs\src\components\" />
-    <Folder Include="Scripts\vuejs\src\layouts\" />
-    <Folder Include="Scripts\vuejs\src\pages\" />
     <Folder Include="Views\BinFile\" />
   </ItemGroup>
   <ItemGroup>

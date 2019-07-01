@@ -27,7 +27,10 @@
       select-all
       item-key="FileName"
       class="elevation-1"
+      :loading="!isLoadedData"
+      :custom-sort="customSort"
     >
+      <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
       <template v-slot:items="props">
         <td>
           <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
@@ -46,6 +49,7 @@
 <script>
 export default {
   data: () => ({
+    isLoadedData: false,
     headers: [
       { text: "Name", value: "FileName" },
       { text: "Path", value: "FilePath", sortable: false },
@@ -79,10 +83,12 @@ export default {
       return (!!a) && (a.constructor === Object);
     },
     loadAllFiles(filePath) {
+      this.isLoadedData = false
       axios
         .get("/api/svserver/getFiles?filePath=" + filePath)
         .then(({ data }) => {
           this.ls_allfiles = data;
+          this.isLoadedData = true
         });
     },
     loadSVServer() {
@@ -113,6 +119,25 @@ export default {
           });
       });
       })
+    },
+
+    customSort(items, index, isDesc) {
+      items.sort((a, b) => {
+        if (index === "Date Modified") {
+          if (!isDesc) {
+            return dateHelp.compare(a.date, b.date);
+          } else {
+            return dateHelp.compare(b.date, a.date);
+          }
+        } else {
+          if (!isDesc) {
+            return a[index] < b[index] ? -1 : 1;
+          } else {
+            return b[index] < a[index] ? -1 : 1;
+          }
+        }
+      });
+      return items;
     }
   }
 };
