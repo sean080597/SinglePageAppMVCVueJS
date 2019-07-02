@@ -36,5 +36,6 @@ namespace SinglePageAppBusiness.Interface
         List<SVSERVERSETTING> GetAllSVSERVERSetting();
         IEnumerable<MyFile> GetAllFilesByPath(string filePath);
         void WriteLogFile(string logPath, MyFile myFile, string datetime);
+        void ChangeSettingValue(string key, string value);
     }
 }

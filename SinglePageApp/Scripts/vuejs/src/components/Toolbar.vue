@@ -12,6 +12,7 @@
       <v-btn flat to="/try_department">Departments Lab</v-btn>
       <v-btn flat to="/try_employee">Employees Lab</v-btn>
       <v-btn flat to="/chart">Chart</v-btn> -->
+      <v-btn flat to="/svsetting">SV Setting</v-btn>
       <v-btn flat to="/svserver">SV Server</v-btn>
       <v-menu open-on-hover transition="slide-y-transition">
         <template v-slot:activator="{ on }">

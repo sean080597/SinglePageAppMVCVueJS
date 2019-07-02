@@ -240,5 +240,11 @@ namespace SinglePageAppBusiness
                 writetext.WriteLine(datetime + " --- " + myFile.FileName + " --- " + myFile.FilePath + " --- " + myFile.FileDateModified);
             }
         }
+
+        public void ChangeSettingValue(string key, string value)
+        {
+            db.SVSERVERSETTINGS.Find(key).SETTINGVALUE = value;
+            db.SaveChanges();
+        }
     }
 }

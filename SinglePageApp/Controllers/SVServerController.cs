@@ -41,7 +41,13 @@ namespace SinglePageApp.Controllers
         public void writeLogFile(string logPath, MyFile myFile, string datetime)
         {
             db.WriteLogFile(logPath, myFile, datetime);
-            return;
+        }
+
+        [HttpPost]
+        [Route("changeSettingValue")]
+        public void changeSettingValue(string key, string value)
+        {
+            db.ChangeSettingValue(key, value);
         }
     }
 }

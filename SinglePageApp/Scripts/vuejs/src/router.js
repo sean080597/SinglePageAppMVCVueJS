@@ -20,6 +20,7 @@ const routes = [
     { path: '/readwritebinfile', component: require('./pages/ReadWriteBin.vue').default },
 
     { path: '/svserver', component: require('./pages/SVServer.vue').default },
+    { path: '/svsetting', component: require('./pages/SVSetting.vue').default },
 ];
 
 const router = new VueRouter({
