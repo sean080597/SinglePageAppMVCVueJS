@@ -1,6 +1,7 @@
 ﻿using SinglePageAppDomain;
 using SinglePageAppRepository;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SinglePageAppBusiness.Interface
 {
@@ -37,5 +38,9 @@ namespace SinglePageAppBusiness.Interface
         IEnumerable<MyFile> GetAllFilesByPath(string filePath);
         void WriteLogFile(string logPath, MyFile myFile, string datetime);
         void ChangeSettingValue(string key, string value);
+
+        //read file
+        string ReadPosBytes(BinaryReader br, int pos, int length);
+        List<FileContent> getListFileContent(string filePath);
     }
 }

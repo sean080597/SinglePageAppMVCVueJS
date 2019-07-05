@@ -43,7 +43,12 @@
   <ItemGroup>
     <Compile Include="DepartmentDomainModel.cs" />
     <Compile Include="EmployeeDomainModel.cs" />
+    <Compile Include="FileContent.cs" />
+    <Compile Include="LifeHostModel.cs" />
+    <Compile Include="MgcoverHost.cs" />
     <Compile Include="MyFile.cs" />
+    <Compile Include="Owner.cs" />
+    <Compile Include="OwnNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SvserverItem.cs" />
   </ItemGroup>

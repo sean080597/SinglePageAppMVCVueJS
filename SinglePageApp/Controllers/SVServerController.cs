@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using SinglePageAppRepository;
 using SinglePageAppDomain;
+using System.IO;
 
 namespace SinglePageApp.Controllers
 {
@@ -48,6 +49,22 @@ namespace SinglePageApp.Controllers
         public void changeSettingValue(string key, string value)
         {
             db.ChangeSettingValue(key, value);
+        }
+
+        //get all files content
+        [Route("getFilesContent")]
+        public IEnumerable<FileContent> GetAllFilesContent(string filePath)
+        {
+            return db.getListFileContent(filePath);
+        }
+
+        [HttpGet]
+        [Route("readFile")]
+        public string readFile(string filePath, int bytePos, int byteReq)
+        {
+            var content = File.ReadAllBytes(filePath);
+            return System.Text.Encoding.GetEncoding(932).GetString(content);
+            //return db.ReadBinFile(filePath, bytePos, byteReq);
         }
     }
 }

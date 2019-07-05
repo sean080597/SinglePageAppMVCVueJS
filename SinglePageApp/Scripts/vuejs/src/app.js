@@ -45,6 +45,10 @@ Vue.filter('dateYMDHMS', function(val){
     return moment(new Date(val)).locale('en').format('YYYY/MM/DD HH:mm:ss');
 });
 
+Vue.filter('dateReformat', function(val){
+    return val.substring(0, 4) + '/' + val.substring(4, 6) + '/' + val.substring(6, 8);
+});
+
 //vue components
 Vue.component('AppHome', require('./layouts/AppHome.vue').default);
 

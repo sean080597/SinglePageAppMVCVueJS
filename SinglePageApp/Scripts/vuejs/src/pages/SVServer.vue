@@ -25,19 +25,24 @@
       :items="ls_allfiles"
       v-model="selected_import"
       select-all
-      item-key="FileName"
+      item-key="GroupNumber"
       class="elevation-1"
       :loading="!isLoadedData"
-      :custom-sort="customSort"
     >
       <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
       <template v-slot:items="props">
         <td>
           <v-checkbox v-model="props.selected" primary hide-details></v-checkbox>
         </td>
-        <td class="text-xs-left">{{ props.item.FileName }}</td>
-        <td class="text-xs-left">{{ props.item.FilePath }}</td>
-        <td class="text-xs-left">{{ props.item.FileDateModified | dateYMD }}</td>
+        <td class="text-xs-left">{{ props.item.BaseCode }}</td>
+        <td class="text-xs-left">{{ props.item.GroupNumber }}</td>
+        <td class="text-xs-left">{{ props.item.Senddate | dateReformat}}</td>
+        <td class="text-xs-left">{{ props.item.FileOwner.FileOwnNames[0].Fm + ' ' + props.item.FileOwner.FileOwnNames[0].Gv}}</td>
+        <td class="text-xs-left">{{ props.item.BankcdShow }}</td>
+        <td class="text-xs-left">{{ caclRecruiterCode(props.item) }}</td>
+        <td class="text-xs-right">{{ props.item.Life_hosts.length }}</td>
+        <td class="text-xs-left">{{ props.item.Life_hosts[props.item.Life_hosts.length - 1].Cov[0].Crtable }}</td>
+        <td class="text-xs-left"></td>
       </template>
       <template v-slot:no-data>
         <v-alert :value="true" color="error" icon="warning">No data to show!</v-alert>
@@ -51,15 +56,21 @@ export default {
   data: () => ({
     isLoadedData: false,
     headers: [
-      { text: "Name", value: "FileName" },
-      { text: "Path", value: "FilePath", sortable: false },
-      { text: "Date Modified", value: "FileDateModified" }
+      { text: "Basecode", value: "BaseCode", sortable: false },
+      { text: "GroupNumber", value: "GroupNumber", sortable: false },
+      { text: "GroupSendDate", value: "Senddate", sortable: false },
+      { text: "SubcriberName", value: "SubcriberName", sortable: false },
+      { text: "BankcdShow", value: "BankcdShow", sortable: false },
+      { text: "RecruiterCode", value: "RecruiterCode", sortable: false },
+      { text: "UpCntShow", value: "UpCntShow", sortable: false },
+      { text: "CrtableShow", value: "CrtableShow", sortable: false },
+      { text: "StatusShow", value: "StatusShow", sortable: false },
     ],
     ls_svserver: [],
     svserver_path: "",
 
     ls_allfiles: [],
-    selected_import: []
+    selected_import: [],
   }),
 
   computed: {
@@ -85,7 +96,7 @@ export default {
     loadAllFiles(filePath) {
       this.isLoadedData = false
       axios
-        .get("/api/svserver/getFiles?filePath=" + filePath)
+        .get("/api/svserver/getFilesContent?filePath=" + filePath)
         .then(({ data }) => {
           this.ls_allfiles = data;
           this.isLoadedData = true
@@ -107,6 +118,12 @@ export default {
     changeSelected() {
       this.loadAllFiles(this.svserver_path);
     },
+    caclRecruiterCode(file){
+      return (file.Agt_no != null && file.Agt_no.length > 1 && file.Agt_no[0] != null) ? file.Agt_no[0] : file.BankPerson
+    },
+    numberLifeHost(file){
+      // return file.Life_hosts.len
+    },
     ImpAndLog() {
       let dtime = Vue.filter("dateYMDHMS")(new Date())
       let svserver_path = this.genSVServerPath
@@ -120,25 +137,6 @@ export default {
       });
       })
     },
-
-    customSort(items, index, isDesc) {
-      items.sort((a, b) => {
-        if (index === "Date Modified") {
-          if (!isDesc) {
-            return dateHelp.compare(a.date, b.date);
-          } else {
-            return dateHelp.compare(b.date, a.date);
-          }
-        } else {
-          if (!isDesc) {
-            return a[index] < b[index] ? -1 : 1;
-          } else {
-            return b[index] < a[index] ? -1 : 1;
-          }
-        }
-      });
-      return items;
-    }
   }
 };
 </script>

@@ -174,7 +174,9 @@ namespace SinglePageAppBusiness
                 fileData = br.ReadBytes(byteReq);
             }
 
-            return System.Text.Encoding.UTF8.GetString(fileData);
+            //return System.Text.Encoding.Default.GetString(fileData);
+            //return System.Text.Encoding.UTF8.GetString(fileData);
+            return System.Text.Encoding.GetEncoding(932).GetString(fileData); //cuz file's format is Shift-JIS
         }
 
         //==================================== SVSERVER =================================
@@ -245,6 +247,134 @@ namespace SinglePageAppBusiness
         {
             db.SVSERVERSETTINGS.Find(key).SETTINGVALUE = value;
             db.SaveChanges();
+        }
+
+        //Read files
+        public string ReadPosBytes(BinaryReader br, int pos, int length)
+        {
+            byte[] fileData = null;
+
+            br.BaseStream.Seek(pos, SeekOrigin.Begin);
+            fileData = br.ReadBytes(length);
+
+            if (pos == 903 || pos == 470 || pos == 433 || pos == 905) return fileData[0] + "";
+            return System.Text.Encoding.GetEncoding(932).GetString(fileData); //cuz file's format is Shift-JIS
+        }
+
+        public List<FileContent> getListFileContent(string filePath)
+        {
+            string dirName = filePath.Substring(filePath.Length - 2);
+            string desc = db.SVSERVERs.Where(t => t.DIRECTORY == dirName).First().DESCRIPTION;
+
+            List<FileContent> ls_files = new List<FileContent>();
+            var files = Directory.GetFiles(filePath).Where(name => !name.ToLower().EndsWith(".log"));
+
+            foreach (string file in files)
+            {
+                using (BinaryReader br = new BinaryReader(File.Open(file, FileMode.Open)))
+                {
+                    ls_files.Add(new FileContent
+                    {
+                        Reccode = ReadPosBytes(br, 0, 1),
+                        Gpclass = ReadPosBytes(br, 1, 1),
+                        GroupNumber = ReadPosBytes(br, 2, 8),
+                        EfctDate = ReadPosBytes(br, 30, 6),
+                        Freq = ReadPosBytes(br, 430, 2),
+                        Mop = ReadPosBytes(br, 432, 1),
+                        Stddy = ReadPosBytes(br, 437, 8),
+                        Rcdate = ReadPosBytes(br, 445, 8),
+                        Desc = desc,
+                        Bcode = ReadPosBytes(br, 453, 2),
+                        Agc_no = ReadPosBytes(br, 455, 5),
+                        Joint = ReadPosBytes(br, 470, 2),
+                        Tot_life = ReadPosBytes(br, 433, 4),
+                        GroupDateTime = ReadPosBytes(br, 30, 6),
+                        File_ver = ReadPosBytes(br, 903, 2),
+                        Up_ver = ReadPosBytes(br, 905, 6),
+                        Mg_ver = ReadPosBytes(br, 911, 6),
+                        Senddate = ReadPosBytes(br, 917, 8),
+                        Sendtime = ReadPosBytes(br, 925, 6),
+                        BankcdShow = ReadPosBytes(br, 944, 4),
+                        BankPerson = ReadPosBytes(br, 963, 12),
+                        FileOwner = new Owner
+                        {
+                            Cl_No = ReadPosBytes(br, 36, 8),
+                            Birth = ReadPosBytes(br, 144, 8),
+                            Sex = ReadPosBytes(br, 152, 1),
+                            FileOwnNames = new List<OwnNames>()
+                            {
+                                new OwnNames
+                                {
+                                    Fm = ReadPosBytes(br, 44, 30),
+                                    Gv = ReadPosBytes(br, 74, 20)
+                                },
+                                new OwnNames
+                                {
+                                    Fm = ReadPosBytes(br, 94, 30),
+                                    Gv = ReadPosBytes(br, 124, 20)
+                                }
+                            }
+                        },
+                        Agt_no = new List<string>()
+                        {
+                            ReadPosBytes(br, 460, 5),
+                            ReadPosBytes(br, 465, 5)
+                        }
+                    });
+
+                    int lhost_pos = (Int32.Parse(ReadPosBytes(br, 903, 2)) == 9) ? 1067 : 1059;
+                    int lhost_length = (int)br.BaseStream.Length - lhost_pos;
+                    int lhost_lengthObj = (Int32.Parse(ReadPosBytes(br, 903, 2)) == 9) ? 1729 : 1719;
+                    int lhost_numberLifeHost = lhost_length / lhost_lengthObj;
+
+                    ls_files[ls_files.Count - 1].Life_hosts = new List<LifeHostModel>();
+                    for (int i = 0; i<lhost_numberLifeHost; i++)
+                    {
+                        int pos = lhost_pos + i * lhost_lengthObj;
+                        ls_files[ls_files.Count - 1].Life_hosts.Add(
+                            new LifeHostModel
+                            {
+                                Reccode = ReadPosBytes(br, pos, 1),
+                                GroupNumber = ReadPosBytes(br, pos + 1, 8),
+                                EfctDate = ReadPosBytes(br, pos + 9, 6),
+                                Emp_cd = ReadPosBytes(br, pos + 15, 10),
+                                Cov = new List<MgcoverHost>()
+                                {
+                                    new MgcoverHost
+                                    {
+                                        Crtable = ReadPosBytes(br, pos + 1617, 2),
+                                        Clong = ReadPosBytes(br, pos + 1619, 2),
+                                        Plong = ReadPosBytes(br, pos + 1621, 2),
+                                        Sumins = ReadPosBytes(br, pos + 1623, 4),
+                                    },
+                                    new MgcoverHost
+                                    {
+                                        Crtable = ReadPosBytes(br, pos + 1635, 2),
+                                        Clong = ReadPosBytes(br, pos + 1637, 2),
+                                        Plong = ReadPosBytes(br, pos + 1639, 2),
+                                        Sumins = ReadPosBytes(br, pos + 1641, 4),
+                                    },
+                                    new MgcoverHost
+                                    {
+                                        Crtable = ReadPosBytes(br, pos + 1653, 2),
+                                        Clong = ReadPosBytes(br, pos + 1655, 2),
+                                        Plong = ReadPosBytes(br, pos + 1657, 2),
+                                        Sumins = ReadPosBytes(br, pos + 1659, 4),
+                                    },
+                                    new MgcoverHost
+                                    {
+                                        Crtable = ReadPosBytes(br, pos + 1671, 2),
+                                        Clong = ReadPosBytes(br, pos + 1673, 2),
+                                        Plong = ReadPosBytes(br, pos + 1675, 2),
+                                        Sumins = ReadPosBytes(br, pos + 1677, 4),
+                                    },
+                                }
+                            }
+                        );
+                    }
+                }
+            }
+            return ls_files;
         }
     }
 }
