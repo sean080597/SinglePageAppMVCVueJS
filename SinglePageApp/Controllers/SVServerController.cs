@@ -58,13 +58,28 @@ namespace SinglePageApp.Controllers
             return db.getListFileContent(filePath);
         }
 
-        [HttpGet]
-        [Route("readFile")]
-        public string readFile(string filePath, int bytePos, int byteReq)
+        [HttpPost]
+        [Route("insertPRGR")]
+        //insert PRGR
+        public string InsertPRGRTable(FileContent content)
         {
-            var content = File.ReadAllBytes(filePath);
-            return System.Text.Encoding.GetEncoding(932).GetString(content);
-            //return db.ReadBinFile(filePath, bytePos, byteReq);
+            return db.insertPRGR(content);
+        }
+
+        [HttpGet]
+        //get all files content
+        [Route("readfile")]
+        public string ReadBinFile(string filePath)
+        {
+            byte[] fileData = null;
+
+            using (BinaryReader br = new BinaryReader(File.Open(filePath, FileMode.Open)))
+            {
+                br.BaseStream.Seek(0, SeekOrigin.Begin);
+                fileData = br.ReadBytes((int)br.BaseStream.Length);
+
+                return System.Text.Encoding.GetEncoding(932).GetString(fileData); //cuz file's format is Shift-JIS
+            }
         }
     }
 }

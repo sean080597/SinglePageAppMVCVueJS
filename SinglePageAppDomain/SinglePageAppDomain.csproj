@@ -44,6 +44,7 @@
     <Compile Include="DepartmentDomainModel.cs" />
     <Compile Include="EmployeeDomainModel.cs" />
     <Compile Include="FileContent.cs" />
+    <Compile Include="JsonResult.cs" />
     <Compile Include="LifeHostModel.cs" />
     <Compile Include="MgcoverHost.cs" />
     <Compile Include="MyFile.cs" />

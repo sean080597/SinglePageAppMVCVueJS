@@ -30,6 +30,12 @@ namespace SinglePageAppDomain
         public string Agc_no { get; set; }
         public string Joint { get; set; }
         public string Tot_life { get; set; }
+        public string DateNow {
+            get
+            {
+                return DateTime.Now.ToString("yyyyMMdd");
+            }
+        }
         public string GroupDateTime { get; set; }
         public string File_ver { get; set; }
         public string Up_ver { get; set; }
@@ -41,5 +47,6 @@ namespace SinglePageAppDomain
         public Owner FileOwner { get; set; }
         public List<string> Agt_no { get; set; }
         public List<LifeHostModel> Life_hosts { get; set; }
+        public string filePath { get; set; }
     }
 }

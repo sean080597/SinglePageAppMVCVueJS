@@ -40,7 +40,10 @@ namespace SinglePageAppBusiness.Interface
         void ChangeSettingValue(string key, string value);
 
         //read file
-        string ReadPosBytes(BinaryReader br, int pos, int length);
+        string ReadPosBytes(BinaryReader br, int pos, int length, string type);
         List<FileContent> getListFileContent(string filePath);
+
+        //add to db
+        string insertPRGR(FileContent content);
     }
 }
