@@ -24,7 +24,7 @@
         ></v-text-field>
       </v-flex>
       <!-- Import Button -->
-      <v-btn color="primary" light class="mb-2" :disabled="!calcIsChecked" @click="ImpAndLog">Import</v-btn>
+      <v-btn color="primary" light class="mb-2" :disabled="!calcIsChecked" @click="ImportAndDel">Import</v-btn>
     </v-toolbar>
     <v-data-table
       :headers="headers"
@@ -166,7 +166,7 @@ export default {
         return "red--text text--darken-1";
       return "blue--text text--lighten-1";
     },
-    ImpAndLog() {
+    ImportAndDel() {
       let dtime = Vue.filter("dateYMDHMS")(new Date());
       let svserver_path = this.genSVServerPath;
       $.each(this.selected_import, function(indexInArray, valueOfElement) {

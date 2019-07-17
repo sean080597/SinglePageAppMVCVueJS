@@ -44,6 +44,7 @@ namespace SinglePageAppBusiness.Interface
         List<FileContent> getListFileContent(string filePath);
 
         //add to db
+        string delPRGR(string filePath);
         string insertPRGR(FileContent content);
     }
 }

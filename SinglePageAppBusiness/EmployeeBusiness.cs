@@ -428,6 +428,13 @@ namespace SinglePageAppBusiness
 
         public string insertPRGR(FileContent content)
         {
+            //check if exists PRGR in DB
+            bool founded = db.PRGRs.Any(t => t.GRUPNUM == content.GroupNumber && t.EFCTYYYYMM == content.EfctDate);
+            if (founded)
+            {
+                return delPRGR(content.filePath);
+            }
+
             //insert PRGR
             PRGR pRGR = new PRGR();
             pRGR.RECTYPE = Byte.Parse(content.Reccode);
@@ -496,17 +503,23 @@ namespace SinglePageAppBusiness
 
             db.SaveChanges();
 
+            //del file after inserting PRGR
+            return delPRGR(content.filePath);
+        }
+
+        public string delPRGR(string filePath)
+        {
             JsonResult result;
             try
             {
                 // Check if file exists with its full path    
-                if (File.Exists(content.filePath))
+                if (File.Exists(filePath))
                 {
                     // If file found, delete it    
-                    File.Delete(content.filePath);
-                    result = new JsonResult { type = "success", value = "Import Data successfully"};
+                    File.Delete(filePath);
+                    result = new JsonResult { type = "success", value = "Import Data successfully" };
                 }
-                else result = new JsonResult { type = "error", value = "File not found"};
+                else result = new JsonResult { type = "error", value = "File not found" };
             }
             catch (IOException ioExp)
             {
