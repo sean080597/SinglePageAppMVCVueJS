@@ -1,0 +1,6 @@
+{
+    "welcomeMsg": "My Vue.jsアプリへようこそ",
+    "pluginsTxt": "インストール済みCLIプラグイン",
+    "guideTxt": "このプロジェクトを設定/カスタマイズする方法に関するガイドとレシピについては、{break} チェックアウト {action}",
+    "guideDocTxt": "vue-cliドキュメンテーション"
+}
